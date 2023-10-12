@@ -882,6 +882,36 @@ static reloc_howto_type howto_table[] =
 	 0,				/* src_mask */
 	 ENCODE_CV_HWLP_UIMM5 (-1U),	/* dst_mask */
 	 true),				/* pcrel_offset */
+
+  /* 12 bits Symbol or Symbol expr. I type  */
+  HOWTO (R_RISCV_12_I,			/* type */
+	0,				/* rightshift */
+	2,				/* size */
+	32,				/* bitsize */
+	false,				/* pc_relative */
+	0,				/* bitpos */
+	complain_overflow_signed,	/* complain_on_overflow */
+	bfd_elf_generic_reloc,		/* special_function */
+	"R_RISCV_12_I",			/* name */
+	false,				/* partial_inplace */
+	0,				/* src_mask */
+	ENCODE_ITYPE_IMM (-1U),		/* dst_mask */
+	false),				/* pcrel_offset */
+
+  /* 12 bits Symbol or Symbol expr. S type */
+  HOWTO (R_RISCV_12_S,			/* type */
+	0,				/* rightshift */
+	2,				/* size */
+	32,				/* bitsize */
+	false,				/* pc_relative */
+	0,				/* bitpos */
+	complain_overflow_signed,	/* complain_on_overflow */
+	bfd_elf_generic_reloc,		/* special_function */
+	"R_RISCV_12_S",			/* name */
+	false,				/* partial_inplace */
+	0,				/* src_mask */
+	ENCODE_ITYPE_IMM (-1U),		/* dst_mask */
+	false),				/* pcrel_offset */
 };
 
 /* A mapping from BFD reloc types to RISC-V ELF reloc types.  */
@@ -946,6 +976,8 @@ static const struct elf_reloc_map riscv_reloc_map[] =
   /* CORE-V Specific.  */
   { BFD_RELOC_RISCV_CVPCREL_UI12, R_RISCV_CVPCREL_UI12 },
   { BFD_RELOC_RISCV_CVPCREL_URS1, R_RISCV_CVPCREL_URS1 },
+  { BFD_RELOC_RISCV_12_I, R_RISCV_12_I },
+  { BFD_RELOC_RISCV_12_S, R_RISCV_12_S },
 };
 
 reloc_howto_type *

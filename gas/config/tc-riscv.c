@@ -2627,6 +2627,7 @@ static const struct percent_op_match percent_op_itype[] =
   {"%lo", BFD_RELOC_RISCV_LO12_I},
   {"%tprel_lo", BFD_RELOC_RISCV_TPREL_LO12_I},
   {"%pcrel_lo", BFD_RELOC_RISCV_PCREL_LO12_I},
+  {"%tiny", BFD_RELOC_RISCV_12_I},
   {0, 0}
 };
 
@@ -2635,6 +2636,7 @@ static const struct percent_op_match percent_op_stype[] =
   {"%lo", BFD_RELOC_RISCV_LO12_S},
   {"%tprel_lo", BFD_RELOC_RISCV_TPREL_LO12_S},
   {"%pcrel_lo", BFD_RELOC_RISCV_PCREL_LO12_S},
+  {"%tiny", BFD_RELOC_RISCV_12_S},
   {0, 0}
 };
 
@@ -4859,6 +4861,10 @@ md_apply_fix (fixS *fixP, valueT *valP, segT seg ATTRIBUTE_UNUSED)
       break;
 
     case BFD_RELOC_RISCV_ALIGN:
+      break;
+
+    case BFD_RELOC_RISCV_12_I:
+    case BFD_RELOC_RISCV_12_S:
       break;
 
     default:

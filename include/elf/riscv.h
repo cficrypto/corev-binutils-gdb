@@ -97,6 +97,8 @@ START_RELOC_NUMBERS (elf_riscv_reloc_type)
   /* CORE-V Specific Relocations.  */
   RELOC_NUMBER (R_RISCV_CVPCREL_UI12, 224)
   RELOC_NUMBER (R_RISCV_CVPCREL_URS1, 225)
+  RELOC_NUMBER (R_RISCV_12_I, 250)
+  RELOC_NUMBER (R_RISCV_12_S, 251)
 END_RELOC_NUMBERS (R_RISCV_max)
 
 /* Processor specific flags for the ELF header e_flags field.  */

@@ -4340,6 +4340,8 @@ number for the SBIC, SBIS, SBI and CBI instructions  */
 /* CORE-V relocations.  */
   BFD_RELOC_RISCV_CVPCREL_UI12,
   BFD_RELOC_RISCV_CVPCREL_URS1,
+  BFD_RELOC_RISCV_12_I,
+  BFD_RELOC_RISCV_12_S,
 
 /* Renesas RL78 Relocations.  */
   BFD_RELOC_RL78_NEG8,
