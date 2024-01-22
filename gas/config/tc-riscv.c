@@ -3423,6 +3423,11 @@ riscv_ip (char *str, struct riscv_cl_insn *ip, expressionS *imm_expr,
 			}
 		      INSERT_OPERAND (IMM12, *ip, (imm_expr->X_add_number>>2));
 		    }
+		  else
+		  {
+		    asarg = expr_parse_end;
+		    *imm_reloc = BFD_RELOC_RISCV_CVPCREL_UI12;
+		  }
 		}
 	      else if (oparg[1] == '2')
 		{
@@ -3450,6 +3455,11 @@ riscv_ip (char *str, struct riscv_cl_insn *ip, expressionS *imm_expr,
 			}
 		      INSERT_OPERAND (IMM5, *ip, (imm_expr->X_add_number>>2));
 		    }
+		  else
+		  {
+		    asarg = expr_parse_end;
+		    *imm_reloc = BFD_RELOC_RISCV_CVPCREL_URS1;
+		  }
 		}
 	      else
 		{
@@ -4514,6 +4524,33 @@ md_apply_fix (fixS *fixP, valueT *valP, segT seg ATTRIBUTE_UNUSED)
 	  bfd_vma target = S_GET_VALUE (fixP->fx_addsy) + *valP;
 	  bfd_vma delta = target - md_pcrel_from (fixP);
 	  bfd_putl32 (bfd_getl32 (buf) | ENCODE_JTYPE_IMM (delta), buf);
+	}
+      break;
+
+    /* CORE-V Specific.  */
+    case BFD_RELOC_RISCV_CVPCREL_UI12:
+      if (fixP->fx_addsy)
+	{
+	  reloc_howto_type *howto;
+
+	  /* Fill in a tentative value to improve objdump readability.  */
+	  howto = bfd_reloc_type_lookup (stdoutput, fixP->fx_r_type);
+	  bfd_vma target = S_GET_VALUE (fixP->fx_addsy) + *valP;
+	  bfd_vma delta = (target - md_pcrel_from (fixP)) >> howto->rightshift;
+	  bfd_putl32 (bfd_getl32 (buf) | ENCODE_ITYPE_IMM (delta), buf);
+	}
+      break;
+
+    case BFD_RELOC_RISCV_CVPCREL_URS1:
+      if (fixP->fx_addsy)
+	{
+	  reloc_howto_type *howto;
+
+	  /* Fill in a tentative value to improve objdump readability.  */
+	  howto = bfd_reloc_type_lookup (stdoutput, fixP->fx_r_type);
+	  bfd_vma target = S_GET_VALUE (fixP->fx_addsy) + *valP;
+	  bfd_vma delta = (target - md_pcrel_from (fixP)) >> howto->rightshift;
+	  bfd_putl32 (bfd_getl32 (buf) | ENCODE_CV_HWLP_UIMM5 (delta), buf);
 	}
       break;
 

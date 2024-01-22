@@ -808,6 +808,37 @@ static reloc_howto_type howto_table[] =
 	 0,				/* src_mask */
 	 0,				/* dst_mask */
 	 false),			/* pcrel_offset */
+
+  /* CORE-V Specific.  */
+  /* 12-bit PC-relative offset, for hwloop.  */
+  HOWTO (R_RISCV_CVPCREL_UI12,		/* type */
+	 2,				/* rightshift */
+	 2,				/* size */
+	 32,				/* bitsize */
+	 true,				/* pc_relative */
+	 0,				/* bitpos */
+	 complain_overflow_unsigned,	/* complain_on_overflow */
+	 bfd_elf_generic_reloc,		/* special_function */
+	 "R_RISCV_CVPCREL_UI12",	/* name */
+	 false,				/* partial_inplace */
+	 0,				/* src_mask */
+	 ENCODE_ITYPE_IMM (-1U),	/* dst_mask */
+	 true),				/* pcrel_offset */
+
+  /* Unsigned 5-bit PC-relative offset, for hwloop.  */
+  HOWTO (R_RISCV_CVPCREL_URS1,		/* type */
+	 2,				/* rightshift */
+	 1,				/* size */
+	 32,				/* bitsize */
+	 true,				/* pc_relative */
+	 0,				/* bitpos */
+	 complain_overflow_unsigned,	/* complain_on_overflow */
+	 bfd_elf_generic_reloc,		/* special_function */
+	 "R_RISCV_CVPCREL_URS1",	/* name */
+	 false,				/* partial_inplace */
+	 0,				/* src_mask */
+	 ENCODE_CV_HWLP_UIMM5 (-1U),	/* dst_mask */
+	 true),				/* pcrel_offset */
 };
 
 static reloc_howto_type howto_table_internal[] =
@@ -947,6 +978,9 @@ static const struct elf_reloc_map riscv_reloc_map[] =
   { BFD_RELOC_RISCV_32_PCREL, R_RISCV_32_PCREL },
   { BFD_RELOC_RISCV_SET_ULEB128, R_RISCV_SET_ULEB128 },
   { BFD_RELOC_RISCV_SUB_ULEB128, R_RISCV_SUB_ULEB128 },
+  /* CORE-V Specific.  */
+  { BFD_RELOC_RISCV_CVPCREL_UI12, R_RISCV_CVPCREL_UI12 },
+  { BFD_RELOC_RISCV_CVPCREL_URS1, R_RISCV_CVPCREL_URS1 },
 };
 
 reloc_howto_type *
